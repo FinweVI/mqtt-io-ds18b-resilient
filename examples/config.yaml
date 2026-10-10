@@ -1,0 +1,18 @@
+# Replace the historical address and verify the w1 master mapping.
+# This bus MUST physically contain exactly one externally powered sensor.
+mqtt:
+  host: localhost
+  topic_prefix: temperatures
+
+sensor_modules:
+  - name: inlet
+    module: ds18b_resilient
+    type: DS18B20
+    address: "0123456789ab"  # Without the 28- prefix
+    w1_master: 1            # Linux w1 master ID, NOT a GPIO number
+    single_sensor: true
+
+sensor_inputs:
+  - name: inlet_temperature
+    module: inlet
+    interval: 60
